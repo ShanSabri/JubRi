@@ -1,0 +1,18 @@
+Package: JubRi
+Type: Package
+Title: Literature-based keyword ontology
+Version: 0.1.0
+Author: Shan Sabri <ShanASabri@gmail.com>
+Maintainer: Shan Sabri <ShanASabri@gmail.com>
+Description: Literature-based keyword ontology
+Imports:
+    tools,
+    utils,
+    pbapply,
+    reshape2,
+    stats,
+    dplyr
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
