@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+example/example.R
+example/test_queries
+data
+data/data.R

@@ -11,7 +11,11 @@ Imports:
     pbapply,
     reshape2,
     stats,
-    dplyr
+    dplyr, 
+    ggplot2, 
+    patchwork, 
+    cowplot, 
+    ggrepel
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

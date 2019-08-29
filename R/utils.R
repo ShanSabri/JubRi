@@ -60,6 +60,7 @@ aggregrate_queries <- function(files, normalize = TRUE, blacklist = c()) {
 #' @importFrom reshape2 dcast
 reshape_to_df <- function(x) {
   x <- do.call(rbind.data.frame, x)
+  x <- unique(x)
   x <- reshape2::dcast(TERM ~ ID, value.var = "COUNT", data = x)
   x[is.na(x)] <- 0
   row.names(x) <- x$TERM
@@ -76,7 +77,7 @@ reshape_to_df <- function(x) {
 #' @param bg background matrix
 #' @param terms a vector of character terms that are to be tested
 #'
-#' @return p-values compuated
+#' @return p-values
 #' @importFrom pbapply pbsapply
 #' @importFrom stats wilcox.test
 wilcox <- function(fg, bg, terms) {

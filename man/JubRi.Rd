@@ -34,16 +34,3 @@ a list of data.frames, each element corresponding to the foreground, background 
 \description{
 JubRi: a method for literature-based keyword ontology
 }
-\examples{
-genes <- c("NANOG", "DPPA5A", "POU5F1", "SOX2")
-data(queries)
-results <- JubRi(x = genes,
-                 db = queries,
-                 to_test_critera = 0.2,
-                 background_size = 1000,
-                 p_adj_method = "fdr",
-                 pval_threshold = 0.05,
-                 log2fc_threshold = 1,
-                 seed = 42,
-                 verbose = TRUE)
-}

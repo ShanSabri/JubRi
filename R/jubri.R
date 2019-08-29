@@ -14,18 +14,6 @@
 #' @importFrom stats p.adjust quantile
 #'
 #' @export
-#' @examples
-#' genes <- c("NANOG", "DPPA5A", "POU5F1", "SOX2")
-#' data(queries)
-#' results <- JubRi(x = genes,
-#'                  db = queries,
-#'                  to_test_critera = 0.2,
-#'                  background_size = 1000,
-#'                  p_adj_method = "fdr",
-#'                  pval_threshold = 0.05,
-#'                  log2fc_threshold = 1,
-#'                  seed = 42,
-#'                  verbose = TRUE)
 JubRi <- function(x, db, to_test_critera = 0.25, background_size = 1000,
                   p_adj_method = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"),
                   pval_threshold = 0.01, log2fc_threshold = 1,
@@ -55,7 +43,7 @@ JubRi <- function(x, db, to_test_critera = 0.25, background_size = 1000,
     FG_MU = rowMeans(fg),
     BG_MU = NA,
     TO_TEST = NA,
-    ADJ_PVAL = NA,
+    PVAL = NA,
     LOG2FC = NA
   )
   meta$TO_TEST <- ifelse(meta$FG_MU >= stats::quantile(meta$FG_MU, to_test_critera), TRUE, FALSE)
@@ -85,11 +73,11 @@ JubRi <- function(x, db, to_test_critera = 0.25, background_size = 1000,
   log(sprintf("Computing adjusted P-values and Log2(FC) for %s terms", length(shared_terms)))
   p <- wilcox(fg = fg, bg = bg, terms = shared_terms) #  parallel = parallel
   meta$BG_MU[match(names(bg_mu), row.names(fg))] <- bg_mu
-  meta$ADJ_PVAL[match(names(p), row.names(fg))] <- stats::p.adjust(p, method = p_adj_method, n = length(p))
+  meta$PVAL[match(names(p), row.names(fg))] <- stats::p.adjust(p, method = p_adj_method, n = length(p))
   meta$LOG2FC <- ifelse(meta$TO_TEST == TRUE, log2((meta$FG_MU + 0.01) / (meta$BG_MU + 0.01)), NA)
-  meta$SIGNIFICANT <- ifelse(meta$ADJ_PVAL <= pval_threshold & abs(meta$LOG2FC) >= log2fc_threshold, "PVAL_LOG2FC",
-    ifelse(abs(meta$LOG2FC) >= log2fc_threshold, "LOG2FC",
-      ifelse(meta$ADJ_PVAL <= pval_threshold, "PVAL", "NOT_SIGNIFICANT")
+  meta$SIGNIFICANT <- ifelse(meta$PVAL <= pval_threshold & meta$LOG2FC >= log2fc_threshold, "PVAL_LOG2FC",
+    ifelse(meta$LOG2FC >= log2fc_threshold, "LOG2FC",
+      ifelse(meta$PVAL <= pval_threshold, "PVAL", "NOT_SIGNIFICANT")
     )
   )
   meta$SIGNIFICANT <- factor(meta$SIGNIFICANT, levels = c("PVAL_LOG2FC", "LOG2FC", "PVAL", "NOT_SIGNIFICANT"))
@@ -99,6 +87,6 @@ JubRi <- function(x, db, to_test_critera = 0.25, background_size = 1000,
   return(list(
     FOREGROUND = fg,
     BACKGROUND = bg,
-    META = meta[with(meta, order(SIGNIFICANT, -LOG2FC, ADJ_PVAL)), ])
+    META = meta[with(meta, order(SIGNIFICANT, -LOG2FC, PVAL)), ])
     )
 }
