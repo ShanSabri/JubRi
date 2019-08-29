@@ -14,7 +14,7 @@ wilcox(fg, bg, terms)
 \item{terms}{a vector of character terms that are to be tested}
 }
 \value{
-p-values compuated
+p-values
 }
 \description{
 Computer P-value enrichment of query terms

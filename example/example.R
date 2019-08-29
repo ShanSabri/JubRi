@@ -23,14 +23,14 @@ length(queries) # 18039 entires
 
 ### DEFINE SEARCH TERMS
 prog <- readRDS("~/Dropbox/PlathLab/Analyses/Justin_Langerman/Timecourse_analysis/data/metanetwork/2019.02.08.Drop10.All.Program.List.Cleanedx4.rds")
-genes <- sort(as.vector(subset(prog, Set == "CDH1_P_7")$Genes))
+genes <- sort(as.vector(subset(prog, Set == "CDH1_P_7")$Genes)) # pluripotency-related genes
 
 
 
 ### JUBRI
 results <- JubRi(x = genes,
                  db = queries,
-                 to_test_critera = 0.25,
+                 to_test_critera = 0.50,
                  background_size = 1000,
                  p_adj_method = "fdr",
                  pval_threshold = 0.05,
@@ -43,8 +43,22 @@ results <- JubRi(x = genes,
 
 
 
-## VISUALIZE OUTPUT
-mp <- metaplot(results, top_n = 30, file = "~/Desktop/metaplot.png")
+### VISUALIZE OUTPUT
+mp <- metaplot(results, top_n = 30, file = file.path("man", "figures", "metaplot.png"))
+
+
+
+### ONE STOP SHOP
+JubRi(x = genes,
+      db = queries,
+      to_test_critera = 0.50,
+      background_size = 1000,
+      p_adj_method = "fdr",
+      pval_threshold = 0.05,
+      log2fc_threshold = 1,
+      seed = 42,
+      verbose = TRUE) %>%
+  metaplot()
 
 
 
