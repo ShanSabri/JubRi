@@ -9,10 +9,11 @@ JubRi is a R package that performs literature-based keyword ontology. JubRi util
 
 ## Installation
 
-Use [devtools](https://github.com/r-lib/devtools) to install JubRi directly from GitHub.
+Use [devtools](https://github.com/r-lib/devtools) to install JubRi directly from GitHub. Some user may experience an installation error related to the [`patchwork`](https://github.com/thomasp85/patchwork) R package dependency. Please ensure that this dependency is successfully installed prior to `JubRi` installation. 
 
 ```R
 # if(!require(devtools)) {install.packages(devtools)}
+# devtools::install_github("thomasp85/patchwork") # dependency, not avail on CRAN
 devtools::install_github("ShanSabri/JubRi")
 
 ```
