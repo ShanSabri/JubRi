@@ -5,11 +5,11 @@
 [![packageversion](https://img.shields.io/badge/Package%20version-0.1.0-orange.svg?style=flat-square)](commits/master) 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-ff69b4.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-JubRi is a R package that performs literature-based keyword ontology. JubRi utilizes a curated keyword database of roughly 18,000 genes queried using the [`PubMedScrapeR`](https://github.com/ShanSabri/PubMedScrapeR) R package. 
+JubRi is a R package that performs literature-based keyword ontology. JubRi utilizes a curated keyword database of roughly 18,000 genes queried using the [PubMedScrapeR](https://github.com/ShanSabri/PubMedScrapeR) R package. 
 
 ## Installation
 
-Use [devtools](https://github.com/r-lib/devtools) to install JubRi directly from GitHub. Some user may experience an installation error related to the [`patchwork`](https://github.com/thomasp85/patchwork) R package dependency. Please ensure that this dependency is successfully installed prior to `JubRi` installation. 
+Use [devtools](https://github.com/r-lib/devtools) to install JubRi directly from GitHub. Some user may experience an installation error related to the [patchwork](https://github.com/thomasp85/patchwork) R package dependency. Please ensure that this dependency is successfully installed prior to `JubRi` installation. 
 
 ```R
 # if(!require(devtools)) {install.packages(devtools)}
